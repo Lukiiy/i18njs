@@ -34,4 +34,20 @@ const I18n = {
             obj.textContent = table[obj.dataset.i18n] ?? this.getOriginal(obj).text;
         });
     },
+
+    // Switch language and apply changes
+    set(lang) {
+        this.lang = lang;
+        document.documentElement.lang = lang; // this is the html tag lang thing, which may affect screen readers and spell checking
+
+        try {
+            localStorage.setItem(STORAGE, lang);
+        } catch (err) {}
+
+        this.apply();
+    },
+
+    init() { // TODO
+        // grab stuff, check & save data, yada yaday yadaydada
+    }
 };
