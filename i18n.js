@@ -47,7 +47,17 @@ const I18n = {
         this.apply();
     },
 
-    init() { // TODO
-        // grab stuff, check & save data, yada yaday yadaydada
-    }
+    init() {
+        let saved = null;
+
+        try {
+            saved = localStorage.getItem(STORAGE);
+        } catch (err) {}
+
+        const wanted = saved || navigator.language.slice(0, 2);
+
+        if (wanted !== this.defaultLang && this.strings[wanted]) this.set(wanted);
+    },
 };
+
+document.addEventListener("DOMContentLoaded", () => I18n.init());
