@@ -1,5 +1,6 @@
 const DEFAULT_LANG = "en";
 const STORAGE = "lang";
+const TRANSLATE_POINT = "[data-i18n]";
 
 const I18n = {
     lang: DEFAULT_LANG,
@@ -25,9 +26,12 @@ const I18n = {
         return this.originals.get(obj);
     },
 
-    apply() {},
-    set() {},
-    init() { // TODO
-        // grab stuff, check & save data, yada yaday yadaydada
+    // applies the translations to every element that has the translate attribute
+    apply(root = document) {
+        root.querySelectorAll(TRANSLATE_POINT).forEach((obj) => {
+            const table = this.strings[this.lang] || {};
+
+            obj.textContent = table[obj.dataset.i18n] ?? this.getOriginal(obj).text;
+        });
     },
 };
