@@ -1,5 +1,8 @@
+const DEFAULT_LANG = "en";
+const STORAGE = "lang";
+
 const I18n = {
-    lang: "en",
+    lang: DEFAULT_LANG,
     strings: {}, // the jsonlike lang keys with string values
     originals: new WeakMap(), // entries vanish if element is removed
 
