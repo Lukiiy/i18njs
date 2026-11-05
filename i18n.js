@@ -15,6 +15,7 @@ const I18n = {
         return (table && table[key]) ?? fallback ?? key;
     },
 
+    // get (or create) the saved original content for an element
     getOriginal(obj) {
         if (!this.originals.has(obj)) this.originals.set(obj, { text: obj.textContent, attrs: {} });
 
