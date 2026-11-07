@@ -1,6 +1,7 @@
 const DEFAULT_LANG = "en";
 const STORAGE = "lang";
 const TRANSLATE_POINT = "[data-i18n]";
+const TRANSLATE_ATTR_POINT = "[data-i18n-attr]";
 
 const I18n = {
     lang: DEFAULT_LANG,
@@ -33,6 +34,20 @@ const I18n = {
             const original = this.getOriginal(obj);
 
             obj.textContent = table[obj.dataset.i18n] ?? original.text;
+        });
+
+        root.querySelectorAll(TRANSLATE_ATTR_POINT).forEach((obj) => {
+            const original = this.getOriginal(obj);
+            const table = this.strings[this.lang] || {};
+
+            obj.dataset.i18nAttr.split(';').forEach((pair) => {
+                const [attr, key] = pair.split('=').map((s) => s.trim());
+                if (!attr || !key) return;
+
+                if (!(attr in original.attrs)) original.attrs[attr] = obj.getAttribute(attr) ?? '';
+
+                obj.setAttribute(attr, table[key] ?? original.attrs[attr]);
+            });
         });
     },
 
