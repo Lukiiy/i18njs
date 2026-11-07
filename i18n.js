@@ -30,8 +30,9 @@ const I18n = {
     apply(root = document) {
         root.querySelectorAll(TRANSLATE_POINT).forEach((obj) => {
             const table = this.strings[this.lang] || {};
+            const original = this.getOriginal(obj);
 
-            obj.textContent = table[obj.dataset.i18n] ?? this.getOriginal(obj).text;
+            obj.textContent = table[obj.dataset.i18n] ?? original.text;
         });
     },
 
@@ -56,7 +57,7 @@ const I18n = {
 
         const wanted = saved || navigator.language.slice(0, 2);
 
-        if (wanted !== this.defaultLang && this.strings[wanted]) this.set(wanted);
+        if (wanted !== DEFAULT_LANG && this.strings[wanted]) this.set(wanted);
     },
 };
 
