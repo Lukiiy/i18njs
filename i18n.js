@@ -2,6 +2,7 @@ const DEFAULT_LANG = "en";
 const STORAGE = "lang";
 const TRANSLATE_POINT = "[data-i18n]";
 const TRANSLATE_ATTR_POINT = "[data-i18n-attr]";
+const TRANSLATE_BUTTON = "[data-i18n-set]";
 
 const I18n = {
     lang: DEFAULT_LANG,
@@ -77,3 +78,9 @@ const I18n = {
 };
 
 document.addEventListener("DOMContentLoaded", () => I18n.init());
+
+document.addEventListener("click", (e) => {
+    const button = e.target.closest('[data-set-lang]');
+
+    if (button) I18n.set(button.dataset.setLang);
+});
